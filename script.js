@@ -16,8 +16,9 @@ const se = {
 		search=search[0];
 
 
-	    console.log(1);
+		console.log(1);
 		location.replace(search.url.replace(/%S/gis,q));
+		return true
 	},
 	duckduckgoBangs(q,data){
 		throw {message:'TODO!'};
@@ -25,6 +26,7 @@ const se = {
 	duckduckgo(q,data){
 	    console.log(2);
 		location.replace('https://duckduckgo.com/?q='+encodeURIComponent(q));
+		return true
 	}
 };
 void async function(){
@@ -37,7 +39,7 @@ void async function(){
 			vivaldi: await(await fetch('vivaldi_x-search-engine.json')).json()
 		};
 
-		for (let i of ['vivaldi','duckduckgo']) se[i](q,data[i]);
+		for (let i of ['vivaldi','duckduckgo']) if (se[i](q,data[i]) === true) return;
 
 
 	} catch (e) {window.console.error(e);window.alert(e.message||'Error ocured, check console')}
